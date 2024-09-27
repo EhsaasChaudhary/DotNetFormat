@@ -1,0 +1,3 @@
+"ConnectionStrings": {
+    "myConnectionString": "Data Source = FEILZZ-ASUS; Initial Catalog = User; Integrated Security = true"
+}
