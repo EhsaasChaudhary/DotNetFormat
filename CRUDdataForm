@@ -1,0 +1,42 @@
+@using System.Data
+@model CRUD_practice_app.Areas.User.Models.UserViewModel
+
+
+<div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Basic form elements</h4>
+                    <p class="card-description"> Basic form elements </p>
+
+            <form class="forms-sample" role="form" method="post" asp-area="User" asp-controller="User" asp-action="UserSave">
+                        @Html.HiddenFor(x => x.UserID)
+                <div class="form-group">
+                    <label for="Name"><span class="text-danger">*</span>Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Enter Name" asp-for="Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="Email"><span class="text-danger">*</span>Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email" asp-for="Email">
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone"><span class="text-danger">*</span>Phone</label>
+                    <input type="text" class="form-control" id="exampleInputPhone1" placeholder="Enter Phone Number" asp-for="Phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="Password"><span class="text-danger">*</span>Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" asp-for="Password">
+                </div>
+
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <a class="btn btn-dark" asp-area="User" asp-controller="User" asp-action="Userlist">Cancel</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}
