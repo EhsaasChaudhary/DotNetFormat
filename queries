@@ -1,0 +1,74 @@
+
+--- create table
+CREATE TABLE UserInfo (
+    UserID INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(100),
+    Phone VARCHAR(100),
+    Email VARCHAR(100),
+    Password VARCHAR(100)
+);
+
+--- insert dummydata
+INSERT INTO userinfo (Name, Phone, Email, Password)
+VALUES ('abc', '4512562378', 'abc@123', 'abc147');
+
+
+
+--- proc selectall
+CREATE PROCEDURE [dbo].[PR_User_SelectAll]
+AS
+BEGIN
+    SELECT UserID, Name, Email, Phone, Password FROM UserInfo;
+END
+
+
+--- proc selectByPK
+CREATE PROCEDURE [dbo].[PR_User_SelectByPK]
+@UserID int
+AS
+BEGIN
+    SELECT UserID, Name, Email, Phone, Password FROM UserInfo where UserID = @UserID;
+END
+
+
+--- proc deletebyPK
+CREATE PROCEDURE [dbo].[PR_User_DeleteByPK]
+    @UserID INT
+AS
+BEGIN
+    DELETE FROM dbo.UserInfo
+    WHERE UserID = @UserID;
+END
+
+
+--- proc insertinfo
+CREATE PROCEDURE [dbo].[PR_User_Insert]
+    @Name Varchar(100),
+    @Password Varchar(100),
+    @Email Varchar(100),
+    @Phone Varchar(100)
+AS
+BEGIN
+    INSERT INTO UserInfo (Name, Phone, Email, Password)
+    VALUES (@Name, @Phone, @Email, @Password)
+END
+
+
+--- proc updateinfo
+CREATE PROCEDURE [dbo].[PR_User_Update]
+    @UserID INT,
+    @Name Varchar(100),
+    @Password Varchar(100),
+    @Email Varchar(100),
+    @Phone Varchar(100)
+AS
+BEGIN
+    UPDATE UserInfo
+    SET Name = @Name,
+        Password = @Password,
+        Email = @Email,
+        Phone = @Phone
+    WHERE UserID = @UserID
+END
+
+
