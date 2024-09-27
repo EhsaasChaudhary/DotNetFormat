@@ -1,0 +1,72 @@
+using CRUD_practice_app.DAL;
+using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using CRUD_practice_app.Areas.User.Models;
+
+namespace CRUD_practice_app.Areas.User.Controllers
+{
+    [Area("User")]
+    [Route("User/[controller]/[action]")]
+    public class UserController : Controller
+    {
+
+        private readonly IConfiguration Configuration;
+        public UserController(IConfiguration _configuration)
+        {
+            Configuration = _configuration;
+        }
+
+        #region Userget
+        public IActionResult Userlist()
+        {
+            DALbase dalBase = new();
+            DataTable dt = dalBase.User_Select("PR_User_SelectAll");
+            return View(dt);
+        }
+        #endregion
+
+
+        #region delete
+        public IActionResult UserDelete(int UserID)
+        {
+            DALbase dalBase = new();
+            dalBase.UserDeleteByPK(ID: UserID, PR_Name_Delete: "PR_User_DeleteByPK", valuetodelete: "UserID");
+            return RedirectToAction("Userlist");
+        }
+        #endregion
+
+
+        #region AddEdit
+        public IActionResult UserAddEdit(int UserID = 0)
+        {
+            DALbase dalBase = new();
+            if (UserID == 0)
+            {
+                return View(new UserViewModel());
+            }
+            DataTable table = dalBase.User_Select(ID: UserID, PR_Name_PK: "PR_User_SelectByPK", valuetoselect: "UserID");
+            UserViewModel UserViewModel = new();
+            foreach (DataRow row in table.Rows)
+            {
+                UserViewModel.UserID = Convert.ToInt32(row["UserID"]);
+                UserViewModel.Phone = row["Phone"].ToString();
+                UserViewModel.Email = row["Email"].ToString();
+                UserViewModel.Password = row["Password"].ToString();
+                UserViewModel.Name = row["Name"].ToString();  
+            }
+            return View(UserViewModel);
+        }
+        #endregion
+
+
+        #region Save
+        public IActionResult UserSave(UserViewModel UserViewModel, int UserID = 0)
+        {
+            DALbase dalBase = new();
+            dalBase.UserAddEdit(ID: UserID, PR_Name_Update: "PR_User_Update", PR_Name_Insert: "PR_User_Insert", insertUpdateModel: UserViewModel, valuetoupdate: "UserID");
+            return RedirectToAction("Userlist");
+        }
+        #endregion
+
+    }
+}
