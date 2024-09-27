@@ -54,6 +54,14 @@ namespace CRUD_practice_app.Areas.User.Controllers
                 UserViewModel.Password = row["Password"].ToString();
                 UserViewModel.Name = row["Name"].ToString();  
             }
+            foreach (DataRow row in table.Rows)
+            {
+                Console.WriteLine(row["UserID"]);
+                Console.WriteLine(row["Phone"]);
+                Console.WriteLine(row["Email"]);
+                Console.WriteLine(row["Password"]);
+                Console.WriteLine(row["Name"]);
+            }
             return View(UserViewModel);
         }
         #endregion
